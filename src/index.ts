@@ -2,6 +2,9 @@ require('dotenv').config();
 
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
+import dbInit from './db/init';
+
+dbInit();
 
 const serverPort = process.env.SERVER_PORT;
 const clientPort = process.env.CLIENT_PORT;
