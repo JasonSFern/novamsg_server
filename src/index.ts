@@ -2,6 +2,8 @@ require('dotenv').config();
 
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
+
+import routes from './api/routes';
 import dbInit from './db/init';
 
 dbInit();
@@ -27,6 +29,8 @@ export const get = () => {
       message: `Nova.msg API is now online! \n Endpoints available at http://localhost:${serverPort}/api/v1`,
     });
   });
+
+  app.use('/api/v1', routes);
 
   return app;
 };
