@@ -3,13 +3,15 @@ import { UserInput, UserOutput } from '../models/User';
 
 import { hashPassword } from '../helpers/password';
 
-export const create = async (payload: UserInput): Promise<UserOutput> => {
+export const create = async (
+  payload: UserInput
+): Promise<UserOutput | Error> => {
   const { username, password } = payload;
   const hp = hashPassword(password);
   const exists = await User.findOne({ where: { username: username } });
 
   if (exists) {
-    throw new Error('Username is already in use. Please try another username');
+    return new Error('Username is already in use. Please try another username');
   } else {
     payload.password = hp;
 

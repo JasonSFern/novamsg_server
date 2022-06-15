@@ -7,10 +7,14 @@ const userRouter = Router();
 
 // Create new user
 userRouter.post('/register', async (req: Request, res: Response) => {
-  console.log(req.body);
   const payload: CreateUserDTO = req.body;
 
   const result = await userController.create(payload);
+
+  if (result instanceof Error) {
+    return res.status(500).send(result.message);
+  }
+
   return res.status(200).send(result);
 });
 
