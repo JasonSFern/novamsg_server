@@ -1,7 +1,7 @@
 import * as service from '../../../db/services/UserService';
-import { CreateUserDTO } from '../../dto/user.dto';
+import { CreateUserDTO, LoginUserDTO } from '../../dto/user.dto';
 
-import { User } from '../../interfaces';
+import { User, UserSession } from '../../interfaces';
 import * as mapper from './mapper';
 
 export const create = async (payload: CreateUserDTO): Promise<User | Error> => {
@@ -12,4 +12,10 @@ export const create = async (payload: CreateUserDTO): Promise<User | Error> => {
   }
 
   return mapper.toUser(result);
+};
+
+export const login = async (
+  payload: LoginUserDTO
+): Promise<UserSession | Error> => {
+  return await service.login(payload);
 };

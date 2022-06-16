@@ -1,3 +1,3 @@
-import { User } from './user.interface';
+import { User, UserSession } from './user.interface';
 
-export { User };
+export { User, UserSession };

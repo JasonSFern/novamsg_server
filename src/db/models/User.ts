@@ -3,7 +3,7 @@ import sequelizeConnection from '../config/sequelize';
 
 import { UserAttributes } from '../interfaces/user.interface';
 
-export interface UserInput extends Optional<UserAttributes, 'id'> {}
+export interface UserInput extends Optional<UserAttributes, 'id' | 'email'> {}
 export interface UserOutput extends Required<UserAttributes> {}
 
 class User extends Model<UserAttributes, UserInput> implements UserAttributes {

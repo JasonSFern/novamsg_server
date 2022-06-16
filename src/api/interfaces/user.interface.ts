@@ -6,3 +6,19 @@ export interface User {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface UserSession {
+  auth: boolean;
+  status: number;
+  message: string;
+  session: {
+    token: string;
+    expires: number;
+    issued: number;
+    user_data: {
+      id: number;
+      email: string;
+      username: string;
+    };
+  };
+}
