@@ -1,5 +1,5 @@
 import { User } from '../models';
-import { UserInput, UserOutput } from '../models/User';
+import { UserInput, UserOutput, PasswordChangeInput } from '../models/User';
 
 import {
   hashPassword,
@@ -61,5 +61,34 @@ export const login = async (
     } else {
       return new Error('Wrong username and password combination provided!');
     }
+  }
+};
+
+export const updatePassword = async (
+  id: number,
+  payload: PasswordChangeInput
+): Promise<UserOutput | Error> => {
+  const { current_password, new_password } = payload;
+  const user = await User.findByPk(id);
+  // console.log(user);
+  if (!user) {
+    // todo: throw custom error/error handling
+    return new Error('User not found');
+  } else {
+    const hp = hashPassword(new_password);
+    const mp = matchPassword(current_password, user.password);
+    // console.log('match: ', mp);
+    // console.log('hash: ', hp);
+
+    let updatedUser: UserOutput;
+
+    if (mp) {
+      updatedUser = await user.update({ password: hp });
+    } else {
+      // updatedUser = user;
+      throw new Error('Wrong current password provided!');
+    }
+
+    return updatedUser;
   }
 };

@@ -1,5 +1,9 @@
 import * as service from '../../../db/services/UserService';
-import { CreateUserDTO, LoginUserDTO } from '../../dto/user.dto';
+import {
+  CreateUserDTO,
+  LoginUserDTO,
+  UpdateUserPasswordDTO,
+} from '../../dto/user.dto';
 
 import { User, UserSession } from '../../interfaces';
 import * as mapper from './mapper';
@@ -18,4 +22,17 @@ export const login = async (
   payload: LoginUserDTO
 ): Promise<UserSession | Error> => {
   return await service.login(payload);
+};
+
+export const updatePassword = async (
+  id: number,
+  payload: UpdateUserPasswordDTO
+): Promise<User | Error> => {
+  const result = await service.updatePassword(id, payload);
+
+  if (result instanceof Error) {
+    return result;
+  }
+
+  return mapper.toUser(result);
 };

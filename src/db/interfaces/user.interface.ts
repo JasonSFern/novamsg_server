@@ -37,3 +37,9 @@ export interface UserSessionOutput {
   message: string;
   session: EncodeSessionOutput;
 }
+
+export interface PasswordChangeAttributes {
+  id: number;
+  new_password: string;
+  current_password: string;
+}

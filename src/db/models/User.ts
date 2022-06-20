@@ -1,10 +1,15 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelizeConnection from '../config/sequelize';
 
-import { UserAttributes } from '../interfaces/user.interface';
+import {
+  UserAttributes,
+  PasswordChangeAttributes,
+} from '../interfaces/user.interface';
 
 export interface UserInput extends Optional<UserAttributes, 'id' | 'email'> {}
 export interface UserOutput extends Required<UserAttributes> {}
+export interface PasswordChangeInput
+  extends Required<PasswordChangeAttributes> {}
 
 class User extends Model<UserAttributes, UserInput> implements UserAttributes {
   public id!: number;
