@@ -3,8 +3,8 @@ export interface User {
   username: string;
   password?: string;
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface UserSession {
