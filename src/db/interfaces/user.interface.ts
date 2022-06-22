@@ -31,11 +31,25 @@ export interface EncodeSessionOutput {
   };
 }
 
+export type DecodeSessionOutput =
+  | {
+      type: 'valid';
+      session: UserSession;
+    }
+  | {
+      type: 'integrity-error';
+    }
+  | {
+      type: 'invalid-token';
+    };
+
+export type ExpirationStatus = 'expired' | 'active' | 'grace';
+
 export interface UserSessionOutput {
   auth: boolean;
   status: number;
   message: string;
-  session: EncodeSessionOutput;
+  session?: UserSession | EncodeSessionOutput;
 }
 
 export interface PasswordChangeAttributes {
