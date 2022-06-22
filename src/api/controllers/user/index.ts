@@ -36,3 +36,9 @@ export const updatePassword = async (
 
   return mapper.toUser(result);
 };
+
+export const verifyJwtToken = async (
+  payload: string
+): Promise<UserSession | Error> => {
+  return await service.verifyJwtToken(payload);
+};

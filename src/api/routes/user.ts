@@ -49,4 +49,21 @@ userRouter.put('/:id', async (req: Request, res: Response) => {
   return res.status(201).send(result);
 });
 
+// Verify that the session token is still valid and renew if applicable
+userRouter.post('/verify-token', async (req: Request, res: Response) => {
+  const token = req.headers['x-jwt-token'];
+
+  if (token && typeof token === 'string') {
+    const result = await userController.verifyJwtToken(token);
+
+    if (result instanceof Error) {
+      return res.status(500).send(result.message);
+    }
+
+    return res.status(200).send(result);
+  } else {
+    return res.status(500).send({ auth: false, message: 'no token provided' });
+  }
+});
+
 export default userRouter;

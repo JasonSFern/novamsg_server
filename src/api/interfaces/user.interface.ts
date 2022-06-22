@@ -1,3 +1,21 @@
+interface Session {
+  issued: number;
+  expires: number;
+  user_data: {
+    id: number;
+    email: string;
+    username: string;
+  };
+}
+
+interface VerifySession extends Session {
+  token: string;
+}
+
+interface InitialSession extends Session {
+  dateCreated: number;
+}
+
 export interface User {
   id: number;
   username: string;
@@ -11,14 +29,5 @@ export interface UserSession {
   auth: boolean;
   status: number;
   message: string;
-  session: {
-    token: string;
-    expires: number;
-    issued: number;
-    user_data: {
-      id: number;
-      email: string;
-      username: string;
-    };
-  };
+  session?: InitialSession | VerifySession;
 }

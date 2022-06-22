@@ -1,5 +1,6 @@
 import * as userDal from '../dal/user';
 import { UserInput, UserOutput, PasswordChangeInput } from '../models/User';
+import { verifyJwtSessionToken } from '../helpers/user-authentication';
 import { UserSessionOutput } from '../interfaces/user.interface';
 
 export const create = async (
@@ -19,4 +20,10 @@ export const updatePassword = async (
   payload: PasswordChangeInput
 ): Promise<UserOutput | Error> => {
   return userDal.updatePassword(id, payload);
+};
+
+export const verifyJwtToken = async (
+  payload: string
+): Promise<UserSessionOutput | Error> => {
+  return verifyJwtSessionToken(payload);
 };
