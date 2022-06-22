@@ -6,13 +6,17 @@ import PostUser from './PostUser';
 
 Post.belongsTo(User, {
   foreignKey: 'user_id',
-  as: 'post_author',
+  as: 'author',
 });
 Post.belongsToMany(User, {
   foreignKey: 'post_id',
   otherKey: 'user_id',
   through: 'post_users',
   as: 'post_likes',
+});
+Post.hasMany(Comment, {
+  foreignKey: 'post_id',
+  as: 'comments',
 });
 
 Comment.belongsTo(User, {
