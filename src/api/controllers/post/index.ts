@@ -1,7 +1,7 @@
 import * as service from '../../../db/services/PostService';
 import { CreatePostDTO } from '../../dto/post.dto';
 
-import { PaginatedPost } from '../../interfaces';
+import { Post, PaginatedPost } from '../../interfaces';
 import * as mapper from './mapper';
 
 export const getAllPaginate = async (
@@ -22,4 +22,14 @@ export const getAllPaginate = async (
   };
 
   return mappedPosts;
+};
+
+export const create = async (payload: CreatePostDTO): Promise<Post | Error> => {
+  const result = await service.create(payload);
+
+  if (result instanceof Error) {
+    return result;
+  }
+
+  return mapper.toPost(result);
 };

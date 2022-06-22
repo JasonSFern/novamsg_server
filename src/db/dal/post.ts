@@ -1,5 +1,6 @@
 import { PaginatedPostOutput } from '../interfaces/post.interface';
 import { Post, User, Comment } from '../models';
+import { PostInput, PostOutput } from '../models/Post';
 
 export const getAllPaginate = async (
   limit: number,
@@ -31,5 +32,17 @@ export const getAllPaginate = async (
     return posts;
   } else {
     return new Error('Unable to fetch posts.');
+  }
+};
+
+export const create = async (
+  payload: PostInput
+): Promise<PostOutput | Error> => {
+  const post = await Post.create(payload);
+
+  if (post) {
+    return post;
+  } else {
+    return new Error('Unable to create post.');
   }
 };

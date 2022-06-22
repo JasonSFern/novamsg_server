@@ -20,4 +20,16 @@ postRouter.post('/all-posts', async (req: Request, res: Response) => {
   return res.status(200).send(result);
 });
 
+postRouter.post('/', async (req: Request, res: Response) => {
+  const payload: CreatePostDTO = req.body;
+
+  const result = await postController.create(payload);
+
+  if (result instanceof Error) {
+    return res.status(500).send(result.message);
+  }
+
+  return res.status(201).send(result);
+});
+
 export default postRouter;
