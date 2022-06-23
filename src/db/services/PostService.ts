@@ -23,6 +23,10 @@ export const getByUserPaginate = (
   );
 };
 
+export const getById = (id: number): Promise<PostOutput | Error> => {
+  return postDal.getById(id);
+};
+
 export const create = async (
   payload: PostInput
 ): Promise<PostOutput | Error> => {

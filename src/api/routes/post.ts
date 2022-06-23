@@ -56,4 +56,16 @@ postRouter.post('/', async (req: Request, res: Response) => {
   return res.status(201).send(result);
 });
 
+postRouter.get('/:id', async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+
+  const result = await postController.getById(id);
+
+  if (result instanceof Error) {
+    return res.status(500).send(result.message);
+  }
+
+  return res.status(200).send(result);
+});
+
 export default postRouter;

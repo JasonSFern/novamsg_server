@@ -42,6 +42,16 @@ export const getByUserPaginate = async (
   return mappedPosts;
 };
 
+export const getById = async (id: number): Promise<Post | Error> => {
+  const result = await service.getById(id);
+
+  if (result instanceof Error) {
+    return result;
+  }
+
+  return mapper.toPost(result);
+};
+
 export const create = async (payload: CreatePostDTO): Promise<Post | Error> => {
   const result = await service.create(payload);
 

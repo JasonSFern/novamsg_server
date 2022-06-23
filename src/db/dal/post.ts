@@ -41,7 +41,6 @@ export const getByUserPaginate = async (
   offset: number,
   order: string
 ): Promise<PaginatedPostOutput | Error> => {
-  console.log('BOO', user_id, limit, offset, order);
   if (user_id) {
     return Post.findAndCountAll({
       where: { user_id: 2 },
@@ -69,6 +68,34 @@ export const getByUserPaginate = async (
       'Unable to fetch posts for user. Invalid user id provided'
     );
   }
+};
+
+export const getById = async (id: number): Promise<PostOutput | Error> => {
+  const post = await Post.findAll({
+    where: { id: id },
+    include: [
+      {
+        model: User,
+        as: 'author',
+      },
+      {
+        model: User,
+        as: 'post_likes',
+      },
+      {
+        model: Comment,
+        as: 'comments',
+      },
+    ],
+  });
+
+  console.log(post);
+
+  if (!post) {
+    throw new Error('Post not found');
+  }
+
+  return post[0];
 };
 
 export const create = async (
