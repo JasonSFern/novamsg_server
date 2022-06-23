@@ -6,3 +6,16 @@ export type CreatePostDTO = {
 };
 
 export type UpdatePostDTO = CreatePostDTO;
+
+export type PaginatedPostsDTO = {
+  limit: number;
+  offset: number;
+  order: string;
+};
+
+export type PaginatedUserPostsDTO = {
+  user_id: number;
+  limit: number;
+  offset: number;
+  order: string;
+};

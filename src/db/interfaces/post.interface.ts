@@ -1,7 +1,7 @@
 import { UserAttributes } from './user.interface';
 import { PostLikesAttributes } from './postuser.interface';
-import { CommentAttributes } from './comment.interface';
 import { PostOutput } from '../models/Post';
+import { Optional } from 'sequelize/types';
 
 export interface PostCommentsAttributes {
   id: number;
@@ -22,6 +22,16 @@ export interface PostAttributes {
   post_likes?: PostLikesAttributes[];
   comments?: PostCommentsAttributes[];
 }
+
+export interface PaginatedUserPostInput {
+  user_id: number;
+  limit: number;
+  offset: number;
+  order: string;
+}
+
+export interface PaginatedPostInput
+  extends Optional<PaginatedUserPostInput, 'user_id'> {}
 
 export interface PaginatedPostOutput {
   rows: PostOutput[];

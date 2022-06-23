@@ -1,16 +1,34 @@
 import * as service from '../../../db/services/PostService';
-import { CreatePostDTO } from '../../dto/post.dto';
+import {
+  CreatePostDTO,
+  PaginatedPostsDTO,
+  PaginatedUserPostsDTO,
+} from '../../dto/post.dto';
 
 import { Post, PaginatedPost } from '../../interfaces';
 import * as mapper from './mapper';
 
 export const getAllPaginate = async (
-  limit: number,
-  offset: number,
-  order: string
+  payload: PaginatedPostsDTO
 ): Promise<PaginatedPost | Error> => {
-  console.log(limit, offset, order);
-  const result = await service.getAllPaginate(limit, offset, order);
+  const result = await service.getAllPaginate(payload);
+
+  if (result instanceof Error) {
+    return result;
+  }
+
+  let mappedPosts: PaginatedPost = {
+    count: result.count,
+    rows: result.rows.map(mapper.toPost),
+  };
+
+  return mappedPosts;
+};
+
+export const getByUserPaginate = async (
+  payload: PaginatedUserPostsDTO
+): Promise<PaginatedPost | Error> => {
+  const result = await service.getByUserPaginate(payload);
 
   if (result instanceof Error) {
     return result;
