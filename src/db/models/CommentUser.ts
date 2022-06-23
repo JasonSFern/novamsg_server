@@ -3,8 +3,7 @@ import sequelizeConnection from '../config/sequelize';
 
 import { CommentUserAttributes } from '../interfaces/commentuser.interface';
 
-export interface CommentUserInput
-  extends Optional<CommentUserAttributes, 'comment_id'> {}
+export interface CommentUserInput extends CommentUserAttributes {}
 export interface CommentUserOutput extends Required<CommentUserAttributes> {}
 
 class CommentUser
