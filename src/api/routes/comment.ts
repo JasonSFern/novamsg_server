@@ -54,4 +54,11 @@ commentRouter.put('/:id', async (req: Request, res: Response) => {
   return res.status(201).send(result);
 });
 
+commentRouter.delete('/:id', async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const result = await commentController.deleteById(id);
+
+  return res.status(200).send({ success: true });
+});
+
 export default commentRouter;

@@ -39,6 +39,14 @@ export const update = async (
   return await comment.update(payload);
 };
 
+export const deleteById = async (id: number): Promise<boolean> => {
+  const numDeletedComment = await Comment.destroy({
+    where: { id },
+  });
+
+  return !!numDeletedComment;
+};
+
 export const getByPost = async (
   post_id: number
 ): Promise<CommentOutput[] | Error> => {

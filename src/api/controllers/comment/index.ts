@@ -27,6 +27,12 @@ export const update = async (
   return mapper.toComment(result);
 };
 
+export const deleteById = async (id: number): Promise<boolean> => {
+  const isDeleted = await service.deleteById(id);
+
+  return isDeleted;
+};
+
 export const getByPost = async (
   post_id: number
 ): Promise<Comment[] | Error> => {
