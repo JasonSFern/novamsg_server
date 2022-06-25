@@ -126,12 +126,10 @@ export const update = async (
   return await post.update(payload);
 };
 
-export const deleteById = async (id: number): Promise<boolean | Error> => {
+export const deleteById = async (id: number): Promise<boolean> => {
   const numDeletedPost = await Post.destroy({
     where: { id },
   });
-
-  if (!numDeletedPost) return new Error('Unable to delete post');
 
   return !!numDeletedPost;
 };

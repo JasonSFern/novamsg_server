@@ -85,12 +85,8 @@ postRouter.delete('/:id', async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const result = await postController.deleteById(id);
 
-  if (result instanceof Error) {
-    return res.status(500).send(result.message);
-  }
-
   return res.status(204).send({
-    message: 'Post has been successfully deleted',
+    success: result,
   });
 });
 
