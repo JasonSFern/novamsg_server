@@ -1,5 +1,6 @@
 import { Post, PostLikes, PostComments } from '../../interfaces';
 import { PostOutput } from '../../../db/models/Post';
+import { count } from '../../../db/helpers/count';
 
 export const toPost = (post: PostOutput): Post => {
   return {
@@ -12,9 +13,4 @@ export const toPost = (post: PostOutput): Post => {
     post_likes: count<PostLikes>(post.post_likes),
     comments: count<PostComments>(post.comments),
   };
-};
-
-const count = <T>(array: T[] | undefined): number => {
-  if (array && array.length > 0) return array.length - 1;
-  return 0;
 };

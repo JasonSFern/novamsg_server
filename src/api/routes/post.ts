@@ -68,4 +68,24 @@ postRouter.get('/:id', async (req: Request, res: Response) => {
   return res.status(200).send(result);
 });
 
+postRouter.put('/:id', async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const payload: UpdatePostDTO = req.body;
+
+  const result = await postController.update(id, payload);
+
+  if (result instanceof Error) {
+    return res.status(500).send(result.message);
+  }
+
+  return res.status(201).send(result);
+});
+
+postRouter.delete('/:id', async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const result = await postController.deleteById(id);
+
+  return res.status(200).send({ success: true });
+});
+
 export default postRouter;

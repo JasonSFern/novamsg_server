@@ -32,3 +32,14 @@ export const create = async (
 ): Promise<PostOutput | Error> => {
   return postDal.create(payload);
 };
+
+export const update = async (
+  id: number,
+  payload: Partial<PostInput>
+): Promise<PostOutput | Error> => {
+  return postDal.update(id, payload);
+};
+
+export const deleteById = (id: number): Promise<boolean> => {
+  return postDal.deleteById(id);
+};
