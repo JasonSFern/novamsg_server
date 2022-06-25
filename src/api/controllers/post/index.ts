@@ -75,3 +75,9 @@ export const update = async (
 
   return mapper.toPost(result);
 };
+
+export const deleteById = async (id: number): Promise<Boolean | Error> => {
+  const isDeleted = await service.deleteById(id);
+
+  return isDeleted;
+};

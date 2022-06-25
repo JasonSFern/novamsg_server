@@ -39,3 +39,7 @@ export const update = async (
 ): Promise<PostOutput | Error> => {
   return postDal.update(id, payload);
 };
+
+export const deleteById = (id: number): Promise<boolean | Error> => {
+  return postDal.deleteById(id);
+};
