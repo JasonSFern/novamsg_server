@@ -13,3 +13,12 @@ export const create = async (
   }
   return mapper.toComment(result);
 };
+
+export const getByPost = async (
+  post_id: number
+): Promise<Comment[] | Error> => {
+  const result = await service.getByPost(post_id);
+  // result.rows = comments.rows.map(mapper.toComment);
+
+  return result;
+};

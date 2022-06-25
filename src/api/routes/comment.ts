@@ -17,4 +17,16 @@ commentRouter.post('/', async (req: Request, res: Response) => {
   return res.status(201).send(result);
 });
 
+commentRouter.post('/post-comments', async (req: Request, res: Response) => {
+  const post_id: number = req.body.post_id;
+
+  const result = await commentController.getByPost(post_id);
+
+  if (result instanceof Error) {
+    return res.status(500).send(result.message);
+  }
+
+  return res.status(200).send(result);
+});
+
 export default commentRouter;

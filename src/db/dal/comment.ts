@@ -1,4 +1,4 @@
-import { Comment } from '../models';
+import { Comment, User } from '../models';
 import { CommentInput, CommentOutput } from '../models/Comment';
 
 export const create = async (
@@ -11,4 +11,22 @@ export const create = async (
   } else {
     return new Error('Unable to create comment.');
   }
+};
+
+export const getByPost = async (
+  post_id: number
+): Promise<CommentOutput[] | Error> => {
+  return Comment.findAll({
+    where: { post_id: post_id },
+    include: [
+      {
+        model: User,
+        as: 'comment_author',
+      },
+      {
+        model: User,
+        as: 'comment_likes',
+      },
+    ],
+  });
 };
