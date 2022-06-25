@@ -25,3 +25,13 @@ export const getByPost = async (
 
   return result.map(mapper.toComment);
 };
+
+export const getById = async (id: number): Promise<Comment | Error> => {
+  const result = await service.getById(id);
+
+  if (result instanceof Error) {
+    return result;
+  }
+
+  return mapper.toComment(result);
+};

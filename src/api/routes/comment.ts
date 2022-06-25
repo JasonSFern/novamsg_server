@@ -29,4 +29,16 @@ commentRouter.post('/post-comments', async (req: Request, res: Response) => {
   return res.status(200).send(result);
 });
 
+commentRouter.get('/:id', async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+
+  const result = await commentController.getById(id);
+
+  if (result instanceof Error) {
+    return res.status(500).send(result.message);
+  }
+
+  return res.status(200).send(result);
+});
+
 export default commentRouter;
