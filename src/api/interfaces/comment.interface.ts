@@ -1,6 +1,6 @@
 import { User } from './user.interface';
 
-interface CommentLikesAttributes extends User {
+export interface CommentLikesAttributes extends User {
   comment_users: {
     comment_id: number;
     user_id: number;
@@ -17,7 +17,7 @@ export interface Comment {
   createdAt?: Date;
   updatedAt?: Date;
   comment_author?: User;
-  comment_likes?: CommentLikesAttributes[];
+  comment_likes?: number;
 }
 
 export interface CommentUser {

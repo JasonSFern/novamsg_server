@@ -1,6 +1,10 @@
 import { User, UserSession } from './user.interface';
 import { Post, PostLikes, PostComments, PaginatedPost } from './post.interface';
-import { Comment, CommentUser } from './comment.interface';
+import {
+  Comment,
+  CommentUser,
+  CommentLikesAttributes,
+} from './comment.interface';
 
 export {
   User,
@@ -11,4 +15,5 @@ export {
   PaginatedPost,
   Comment,
   CommentUser,
+  CommentLikesAttributes,
 };

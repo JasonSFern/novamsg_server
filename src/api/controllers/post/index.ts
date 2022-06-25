@@ -3,6 +3,7 @@ import {
   CreatePostDTO,
   PaginatedPostsDTO,
   PaginatedUserPostsDTO,
+  UpdatePostDTO,
 } from '../../dto/post.dto';
 
 import { Post, PaginatedPost } from '../../interfaces';
@@ -54,6 +55,19 @@ export const getById = async (id: number): Promise<Post | Error> => {
 
 export const create = async (payload: CreatePostDTO): Promise<Post | Error> => {
   const result = await service.create(payload);
+
+  if (result instanceof Error) {
+    return result;
+  }
+
+  return mapper.toPost(result);
+};
+
+export const update = async (
+  id: number,
+  payload: UpdatePostDTO
+): Promise<Post | Error> => {
+  const result = await service.update(id, payload);
 
   if (result instanceof Error) {
     return result;

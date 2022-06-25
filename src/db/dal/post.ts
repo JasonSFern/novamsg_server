@@ -109,3 +109,19 @@ export const create = async (
     return new Error('Unable to create post.');
   }
 };
+
+export const update = async (
+  id: number,
+  payload: Partial<PostInput>
+): Promise<PostOutput | Error> => {
+  const post = await Post.findByPk(id);
+
+  if (!post) return new Error('Post to edit was not found');
+
+  if (post.user_id != payload.user_id)
+    return new Error(
+      'User editing comment is not the original author. Saving edit has been aborted'
+    );
+
+  return await post.update(payload);
+};
