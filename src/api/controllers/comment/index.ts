@@ -14,6 +14,19 @@ export const create = async (
   return mapper.toComment(result);
 };
 
+export const update = async (
+  id: number,
+  payload: UpdateCommentDTO
+): Promise<Comment | Error> => {
+  const result = await service.update(id, payload);
+
+  if (result instanceof Error) {
+    return result;
+  }
+
+  return mapper.toComment(result);
+};
+
 export const getByPost = async (
   post_id: number
 ): Promise<Comment[] | Error> => {
@@ -24,4 +37,14 @@ export const getByPost = async (
   }
 
   return result.map(mapper.toComment);
+};
+
+export const getById = async (id: number): Promise<Comment | Error> => {
+  const result = await service.getById(id);
+
+  if (result instanceof Error) {
+    return result;
+  }
+
+  return mapper.toComment(result);
 };
