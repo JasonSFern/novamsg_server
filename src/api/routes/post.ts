@@ -85,7 +85,7 @@ postRouter.delete('/:id', async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const result = await postController.deleteById(id);
 
-  return res.status(200).send({ success: 1 });
+  return res.status(200).send({ success: true });
 });
 
 export default postRouter;
