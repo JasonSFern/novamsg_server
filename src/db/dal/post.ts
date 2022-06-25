@@ -120,7 +120,7 @@ export const update = async (
 
   if (post.user_id != payload.user_id)
     return new Error(
-      'User editing comment is not the original author. Saving edit has been aborted'
+      'User editing post is not the original author. Changes have not been saved'
     );
 
   return await post.update(payload);

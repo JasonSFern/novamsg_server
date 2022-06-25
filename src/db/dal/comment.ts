@@ -23,6 +23,22 @@ export const create = async (
   }
 };
 
+export const update = async (
+  id: number,
+  payload: Partial<CommentInput>
+): Promise<CommentOutput | Error> => {
+  const comment = await Comment.findByPk(id);
+
+  if (!comment) return new Error('Comment to edit was not found');
+
+  if (comment.user_id != payload.user_id)
+    return new Error(
+      'User editing comment is not the original author. Changes have not been saved'
+    );
+
+  return await comment.update(payload);
+};
+
 export const getByPost = async (
   post_id: number
 ): Promise<CommentOutput[] | Error> => {
