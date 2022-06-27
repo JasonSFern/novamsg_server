@@ -88,9 +88,5 @@ export const toggleLike = async (
 ): Promise<PostUserOutput[]> => {
   const result = await service.toggleLike(payload);
 
-  if (result instanceof Error) {
-    return result;
-  }
-
   return result;
 };

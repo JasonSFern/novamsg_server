@@ -1,5 +1,7 @@
+import { CommentLikesInput } from '../../api/interfaces/comment.interface';
 import * as commentDal from '../dal/comment';
 import { CommentInput, CommentOutput } from '../models/Comment';
+import { CommentUserOutput } from '../models/CommentUser';
 
 export const getById = (id: number): Promise<CommentOutput | Error> => {
   return commentDal.getById(id);
@@ -26,4 +28,10 @@ export const getByPost = (
   post_id: number
 ): Promise<CommentOutput[] | Error> => {
   return commentDal.getByPost(post_id);
+};
+
+export const toggleLike = (
+  payload: CommentLikesInput
+): Promise<CommentUserOutput[]> => {
+  return commentDal.toggleLike(payload);
 };

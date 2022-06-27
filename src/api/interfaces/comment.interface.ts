@@ -17,7 +17,7 @@ export interface Comment {
   createdAt?: Date;
   updatedAt?: Date;
   comment_author?: User;
-  comment_likes?: number;
+  comment_likes?: CommentLikesAttributes[];
 }
 
 export interface CommentUser {
@@ -25,4 +25,9 @@ export interface CommentUser {
   user_id: number;
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+export interface CommentLikesInput {
+  user_id?: number;
+  comment_id: number;
 }
