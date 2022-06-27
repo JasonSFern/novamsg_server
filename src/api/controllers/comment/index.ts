@@ -1,6 +1,8 @@
+import { CommentUserOutput } from '../../../db/models/CommentUser';
 import * as service from '../../../db/services/CommentService';
 import { CreateCommentDTO, UpdateCommentDTO } from '../../dto/comment.dto';
 import { Comment } from '../../interfaces';
+import { CommentLikesInput } from '../../interfaces/comment.interface';
 import * as mapper from './mapper';
 
 export const create = async (
@@ -53,4 +55,12 @@ export const getById = async (id: number): Promise<Comment | Error> => {
   }
 
   return mapper.toComment(result);
+};
+
+export const toggleLike = async (
+  payload: CommentLikesInput
+): Promise<CommentUserOutput[]> => {
+  const result = await service.toggleLike(payload);
+
+  return result;
 };

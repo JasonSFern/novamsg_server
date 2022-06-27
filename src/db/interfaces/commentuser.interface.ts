@@ -10,3 +10,8 @@ export interface CommentUserAttributes {
 export interface CommentLikesAttributes extends UserAttributes {
   comment_users: CommentUserAttributes;
 }
+
+export interface CommentLikesInput {
+  user_id?: number;
+  comment_id: number;
+}

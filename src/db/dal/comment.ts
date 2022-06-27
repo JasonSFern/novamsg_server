@@ -1,5 +1,7 @@
+import { CommentLikesInput } from '../interfaces/commentuser.interface';
 import { Comment, User } from '../models';
 import { CommentInput, CommentOutput } from '../models/Comment';
+import CommentUser, { CommentUserOutput } from '../models/CommentUser';
 
 export const getById = async (id: number): Promise<CommentOutput | Error> => {
   const comment = await Comment.findByPk(id);
@@ -62,5 +64,34 @@ export const getByPost = async (
         as: 'comment_likes',
       },
     ],
+  });
+};
+
+export const toggleLike = async (
+  payload: CommentLikesInput
+): Promise<CommentUserOutput[]> => {
+  const { comment_id } = payload;
+
+  if (payload.user_id) {
+    const { user_id } = payload;
+    const comment_user = await CommentUser.findOne({
+      where: { comment_id, user_id },
+      attributes: { exclude: ['id'] },
+    });
+
+    if (comment_user) {
+      const like = await CommentUser.destroy({
+        where: { comment_id, user_id },
+      });
+    } else {
+      const like = await CommentUser.create({
+        comment_id,
+        user_id,
+      });
+    }
+  }
+
+  return await CommentUser.findAll({
+    where: { comment_id },
   });
 };
