@@ -10,7 +10,7 @@ export const toPost = (post: PostOutput): Post => {
     createdAt: post.createdAt,
     updatedAt: post.updatedAt,
     author: post.author,
-    post_likes: count<PostLikes>(post.post_likes),
+    post_likes: post.post_likes,
     comments: count<PostComments>(post.comments),
   };
 };

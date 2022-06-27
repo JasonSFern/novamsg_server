@@ -15,3 +15,8 @@ export interface PostLikesAttributes extends UserAttributes {
     user_id: number;
   };
 }
+
+export interface PostLikesInput {
+  user_id?: number;
+  post_id: number;
+}

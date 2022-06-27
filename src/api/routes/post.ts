@@ -7,6 +7,7 @@ import {
   PaginatedPostsDTO,
   PaginatedUserPostsDTO,
 } from '../dto/post.dto';
+import { PostLikesInput } from '../interfaces';
 
 const postRouter = Router();
 
@@ -86,6 +87,18 @@ postRouter.delete('/:id', async (req: Request, res: Response) => {
   const result = await postController.deleteById(id);
 
   return res.status(200).send({ success: true });
+});
+
+postRouter.post('/toggle-like', async (req: Request, res: Response) => {
+  const payload: PostLikesInput = req.body;
+
+  const result = await postController.toggleLike(payload);
+
+  if (result instanceof Error) {
+    return res.status(500).send(result.message);
+  }
+
+  return res.status(200).send(result);
 });
 
 export default postRouter;
