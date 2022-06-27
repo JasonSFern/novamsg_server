@@ -25,11 +25,16 @@ export interface Post {
   createdAt?: Date;
   updatedAt?: Date;
   author?: User;
-  post_likes?: number;
+  post_likes?: PostLikes[];
   comments?: number;
 }
 
 export interface PaginatedPost {
   rows: Post[];
   count: number;
+}
+
+export interface PostLikesInput {
+  user_id?: number;
+  post_id: number;
 }
