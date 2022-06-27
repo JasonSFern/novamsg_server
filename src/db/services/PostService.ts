@@ -4,7 +4,9 @@ import {
   PaginatedPostOutput,
   PaginatedUserPostInput,
 } from '../interfaces/post.interface';
+import { PostLikesInput } from '../interfaces/postuser.interface';
 import { PostInput, PostOutput } from '../models/Post';
+import { PostUserOutput } from '../models/PostUser';
 
 export const getAllPaginate = (
   payload: PaginatedPostInput
@@ -42,4 +44,10 @@ export const update = async (
 
 export const deleteById = (id: number): Promise<boolean> => {
   return postDal.deleteById(id);
+};
+
+export const toggleLike = (
+  payload: PostLikesInput
+): Promise<PostUserOutput[]> => {
+  return postDal.toggleLike(payload);
 };

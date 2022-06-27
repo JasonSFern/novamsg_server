@@ -1,3 +1,4 @@
+import { PostUserOutput } from '../../../db/models/PostUser';
 import * as service from '../../../db/services/PostService';
 import {
   CreatePostDTO,
@@ -6,7 +7,7 @@ import {
   UpdatePostDTO,
 } from '../../dto/post.dto';
 
-import { Post, PaginatedPost } from '../../interfaces';
+import { Post, PaginatedPost, PostLikesInput } from '../../interfaces';
 import * as mapper from './mapper';
 
 export const getAllPaginate = async (
@@ -80,4 +81,16 @@ export const deleteById = async (id: number): Promise<boolean> => {
   const isDeleted = await service.deleteById(id);
 
   return isDeleted;
+};
+
+export const toggleLike = async (
+  payload: PostLikesInput
+): Promise<PostUserOutput[]> => {
+  const result = await service.toggleLike(payload);
+
+  if (result instanceof Error) {
+    return result;
+  }
+
+  return result;
 };

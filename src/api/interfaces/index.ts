@@ -1,5 +1,11 @@
 import { User, UserSession } from './user.interface';
-import { Post, PostLikes, PostComments, PaginatedPost } from './post.interface';
+import {
+  Post,
+  PostLikes,
+  PostComments,
+  PostLikesInput,
+  PaginatedPost,
+} from './post.interface';
 import {
   Comment,
   CommentUser,
@@ -12,6 +18,7 @@ export {
   Post,
   PostLikes,
   PostComments,
+  PostLikesInput,
   PaginatedPost,
   Comment,
   CommentUser,

@@ -1,6 +1,8 @@
 import { PaginatedPostOutput } from '../interfaces/post.interface';
+import { PostLikesInput } from '../interfaces/postuser.interface';
 import { Post, User, Comment } from '../models';
 import { PostInput, PostOutput } from '../models/Post';
+import PostUser, { PostUserOutput } from '../models/PostUser';
 
 export const getAllPaginate = async (
   limit: number,
@@ -132,4 +134,33 @@ export const deleteById = async (id: number): Promise<boolean> => {
   });
 
   return !!numDeletedPost;
+};
+
+export const toggleLike = async (
+  payload: PostLikesInput
+): Promise<PostUserOutput[]> => {
+  const { post_id } = payload;
+
+  if (payload.user_id) {
+    const { user_id } = payload;
+    const post_user = await PostUser.findOne({
+      where: { post_id, user_id },
+      attributes: { exclude: ['id'] },
+    });
+
+    if (post_user) {
+      const like = await PostUser.destroy({
+        where: { post_id, user_id },
+      });
+    } else {
+      const like = await PostUser.create({
+        post_id,
+        user_id,
+      });
+    }
+  }
+
+  return await PostUser.findAll({
+    where: { post_id },
+  });
 };
