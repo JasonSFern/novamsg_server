@@ -10,3 +10,18 @@ export const toUser = (user: UserOutput): User => {
     updatedAt: user.updatedAt,
   };
 };
+
+export const toUserLite = (user: User | undefined): User | undefined => {
+  if (user)
+    return {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+    };
+};
+
+export const toUserLikesLite = (likes: User[] | undefined): any => {
+  if (likes) {
+    return likes.map(toUserLite);
+  }
+};

@@ -1,14 +1,5 @@
 import { User } from './user.interface';
 
-export interface PostLikes extends User {
-  post_users: {
-    createdAt: Date;
-    updatedAt: Date;
-    post_id: number;
-    user_id: number;
-  };
-}
-
 export interface PostComments {
   id: number;
   user_id: number;
@@ -25,7 +16,7 @@ export interface Post {
   createdAt?: Date;
   updatedAt?: Date;
   author?: User;
-  post_likes?: PostLikes[];
+  post_likes?: User[];
   comments?: number;
 }
 

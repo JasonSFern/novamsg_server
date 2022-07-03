@@ -1,5 +1,7 @@
-import { Comment } from '../../interfaces';
+import { Comment, User } from '../../interfaces';
 import { CommentOutput } from '../../../db/models/Comment';
+
+import { toUserLite, toUserLikesLite } from '../user/mapper';
 
 export const toComment = (comment: CommentOutput): Comment => {
   return {
@@ -9,7 +11,7 @@ export const toComment = (comment: CommentOutput): Comment => {
     content: comment.content,
     createdAt: comment.createdAt,
     updatedAt: comment.updatedAt,
-    comment_author: comment.comment_author,
-    comment_likes: comment.comment_likes,
+    comment_author: toUserLite(comment.comment_author),
+    comment_likes: toUserLikesLite(comment.comment_likes),
   };
 };
