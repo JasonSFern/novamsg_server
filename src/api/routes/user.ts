@@ -7,11 +7,19 @@ import {
   UpdateUserPasswordDTO,
 } from '../dto/user.dto';
 
+import { validateHuman } from '../lib/recaptcha-google-api';
+
 const userRouter = Router();
 
 // Create new user
 userRouter.post('/register', async (req: Request, res: Response) => {
   const payload: CreateUserDTO = req.body;
+
+  const human = await validateHuman(payload.token);
+
+  if (!human) {
+    return res.status(500).send("Please, you're not fooling us, bot.");
+  }
 
   const result = await userController.create(payload);
 
@@ -26,6 +34,12 @@ userRouter.post('/register', async (req: Request, res: Response) => {
 userRouter.post('/login', async (req: Request, res: Response) => {
   const payload: LoginUserDTO = req.body;
 
+  const human = await validateHuman(payload.token);
+
+  if (!human) {
+    return res.status(500).send("Please, you're not fooling us, bot.");
+  }
+
   const result = await userController.login(payload);
 
   if (result instanceof Error) {
@@ -39,6 +53,12 @@ userRouter.post('/login', async (req: Request, res: Response) => {
 userRouter.put('/:id', async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const payload: UpdateUserPasswordDTO = req.body;
+
+  const human = await validateHuman(payload.token);
+
+  if (!human) {
+    return res.status(500).send("Please, you're not fooling us, bot.");
+  }
 
   const result = await userController.updatePassword(id, payload);
 

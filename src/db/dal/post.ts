@@ -91,8 +91,6 @@ export const getById = async (id: number): Promise<PostOutput | Error> => {
     ],
   });
 
-  console.log(post);
-
   if (!post) {
     throw new Error('Post not found');
   }

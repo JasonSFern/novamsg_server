@@ -70,22 +70,18 @@ export const updatePassword = async (
 ): Promise<UserOutput | Error> => {
   const { current_password, new_password } = payload;
   const user = await User.findByPk(id);
-  // console.log(user);
+
   if (!user) {
-    // todo: throw custom error/error handling
     return new Error('User not found');
   } else {
     const hp = hashPassword(new_password);
     const mp = matchPassword(current_password, user.password);
-    // console.log('match: ', mp);
-    // console.log('hash: ', hp);
 
     let updatedUser: UserOutput;
 
     if (mp) {
       updatedUser = await user.update({ password: hp });
     } else {
-      // updatedUser = user;
       throw new Error('Wrong current password provided!');
     }
 

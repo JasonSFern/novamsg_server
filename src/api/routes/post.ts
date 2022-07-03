@@ -9,6 +9,8 @@ import {
 } from '../dto/post.dto';
 import { PostLikesInput } from '../interfaces';
 
+import { validateHuman } from '../lib/recaptcha-google-api';
+
 const postRouter = Router();
 
 // Get all posts with pagination
@@ -48,6 +50,12 @@ postRouter.post('/user-posts', async (req: Request, res: Response) => {
 postRouter.post('/', async (req: Request, res: Response) => {
   const payload: CreatePostDTO = req.body;
 
+  const human = await validateHuman(payload.token);
+
+  if (!human) {
+    return res.status(500).send("Please, you're not fooling us, bot.");
+  }
+
   const result = await postController.create(payload);
 
   if (result instanceof Error) {
@@ -72,6 +80,12 @@ postRouter.get('/:id', async (req: Request, res: Response) => {
 postRouter.put('/:id', async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const payload: UpdatePostDTO = req.body;
+
+  const human = await validateHuman(payload.token);
+
+  if (!human) {
+    return res.status(500).send("Please, you're not fooling us, bot.");
+  }
 
   const result = await postController.update(id, payload);
 

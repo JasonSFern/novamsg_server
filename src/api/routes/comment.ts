@@ -4,10 +4,18 @@ import * as commentController from '../controllers/comment';
 import { CreateCommentDTO, UpdateCommentDTO } from '../dto/comment.dto';
 import { CommentLikesInput } from '../interfaces/comment.interface';
 
+import { validateHuman } from '../lib/recaptcha-google-api';
+
 const commentRouter = Router();
 
 commentRouter.post('/', async (req: Request, res: Response) => {
   const payload: CreateCommentDTO = req.body;
+
+  const human = await validateHuman(payload.token);
+
+  if (!human) {
+    return res.status(500).send("Please, you're not fooling us, bot.");
+  }
 
   const result = await commentController.create(payload);
 
@@ -45,6 +53,12 @@ commentRouter.get('/:id', async (req: Request, res: Response) => {
 commentRouter.put('/:id', async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const payload: UpdateCommentDTO = req.body;
+
+  const human = await validateHuman(payload.token);
+
+  if (!human) {
+    return res.status(500).send("Please, you're not fooling us, bot.");
+  }
 
   const result = await commentController.update(id, payload);
 
