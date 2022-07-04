@@ -15,11 +15,11 @@ const userRouter = Router();
 userRouter.post('/register', async (req: Request, res: Response) => {
   const payload: CreateUserDTO = req.body;
 
-  const human = await validateHuman(payload.token);
+  // const human = await validateHuman(payload.token);
 
-  if (!human) {
-    return res.status(500).send("Please, you're not fooling us, bot.");
-  }
+  // if (!human) {
+  //   return res.status(500).send("Please, you're not fooling us, bot.");
+  // }
 
   const result = await userController.create(payload);
 
@@ -34,11 +34,11 @@ userRouter.post('/register', async (req: Request, res: Response) => {
 userRouter.post('/login', async (req: Request, res: Response) => {
   const payload: LoginUserDTO = req.body;
 
-  const human = await validateHuman(payload.token);
+  // const human = await validateHuman(payload.token);
 
-  if (!human) {
-    return res.status(500).send("Please, you're not fooling us, bot.");
-  }
+  // if (!human) {
+  //   return res.status(500).send("Please, you're not fooling us, bot.");
+  // }
 
   const result = await userController.login(payload);
 
@@ -54,11 +54,11 @@ userRouter.put('/:id', async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const payload: UpdateUserPasswordDTO = req.body;
 
-  const human = await validateHuman(payload.token);
+  // const human = await validateHuman(payload.token);
 
-  if (!human) {
-    return res.status(500).send("Please, you're not fooling us, bot.");
-  }
+  // if (!human) {
+  //   return res.status(500).send("Please, you're not fooling us, bot.");
+  // }
 
   const result = await userController.updatePassword(id, payload);
 
