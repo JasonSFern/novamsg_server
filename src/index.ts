@@ -30,7 +30,7 @@ export const get = () => {
     });
   });
 
-  app.use('/api/v1', routes);
+  app.use('/', routes);
 
   return app;
 };
